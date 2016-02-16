@@ -1,0 +1,5 @@
+postcode:
+#  image: admin.datapunt.amsterdam.nl:5000/atlas/postgres
+  build: .
+  ports:
+    - "8080:80"
