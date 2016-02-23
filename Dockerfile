@@ -1,8 +1,15 @@
-FROM nginx:latest
+FROM python:3
 MAINTAINER datapunt@amsterdam.nl
 
-EXPOSE 80
+WORKDIR /app
+EXPOSE 8080
 
-COPY default.conf /etc/nginx/conf.d/
-COPY run_test.sh /usr/local/bin/
-RUN chmod 700 /usr/local/bin/run_test.sh
+RUN pip install uwsgi
+
+COPY . /app/
+RUN pip install -r requirements.txt
+
+RUN adduser --system postcode
+USER postcode
+
+CMD uwsgi --ini /app/uwsgi.ini
