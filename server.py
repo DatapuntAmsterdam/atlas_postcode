@@ -1,8 +1,16 @@
+import logging
 import os
 import re
+import sys
 
 import psycopg2
 from flask import Flask, request, redirect
+
+log = logging.Logger(__name__)
+log.addHandler(logging.StreamHandler(stream=sys.stdout))
+log.setLevel(logging.DEBUG)
+
+log.info("Starting %s application", __name__)
 
 
 def get_docker_host():
@@ -32,6 +40,8 @@ db_pass = os.environ.get('DB_PASS', 'insecure')
 
 connection_str = ("dbname='{}' user='{}' host='{}' password='{}' port='{}'"
                   .format(db_name, db_user, db_host, db_pass, db_port))
+
+log.debug("Connecting to %s", connection_str)
 
 
 @app.route("/")
@@ -66,17 +76,21 @@ def handler():
 
 @app.route("/health")
 def health():
-    get_vbo_id('1061VB', 113, None, None)
-    # failure will cause 500
+    try:
+        get_vbo_id('1061VB', 113, None, None)
+    except:
+        log.exception("Could not obtain data")
+        raise
+
     return "OK"
 
 
 def get_vbo_id(postcode, huisnummer, huisletter, huisnummer_toevoeging):
     params = dict(
-        postcode=postcode,
-        huisnummer=huisnummer,
-        huisletter=huisletter,
-        huisnummer_toevoeging=huisnummer_toevoeging,
+            postcode=postcode,
+            huisnummer=huisnummer,
+            huisletter=huisletter,
+            huisnummer_toevoeging=huisnummer_toevoeging,
     )
 
     query = """SELECT num.verblijfsobject_id
@@ -90,6 +104,8 @@ def get_vbo_id(postcode, huisnummer, huisletter, huisnummer_toevoeging):
     if huisnummer_toevoeging:
         query += " AND num.huisnummer_toevoeging = %(huisnummer_toevoeging)s "
 
+    log.info("Executing query %s with params %s", query, params)
+
     with psycopg2.connect(connection_str) as conn:
         with conn.cursor() as cur:
             cur.execute(query, params)
@@ -98,6 +114,7 @@ def get_vbo_id(postcode, huisnummer, huisletter, huisnummer_toevoeging):
                 return rows[0][0]
 
     return None
+
 
 if __name__ == "__main__":
     app.run(debug=True)
