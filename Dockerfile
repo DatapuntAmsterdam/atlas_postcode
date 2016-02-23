@@ -7,7 +7,8 @@ EXPOSE 8080
 RUN pip install uwsgi
 
 COPY . /app/
-RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt \
+ && chmod 755 /app/run_test.sh
 
 RUN adduser --system postcode
 USER postcode
