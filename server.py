@@ -64,6 +64,13 @@ def handler():
     return redirect("https://atlas.amsterdam.nl/#/detail/bag/verblijfsobject/{}/".format(vbo_id))
 
 
+@app.route("/health")
+def health():
+    get_vbo_id('1061VB', 113, None, None)
+    # failure will cause 500
+    return "OK"
+
+
 def get_vbo_id(postcode, huisnummer, huisletter, huisnummer_toevoeging):
     params = dict(
         postcode=postcode,
