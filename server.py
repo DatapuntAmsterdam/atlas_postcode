@@ -4,7 +4,7 @@ import re
 import sys
 
 import psycopg2
-from flask import Flask, request, redirect
+from flask import Flask, request, redirect, render_template
 
 log = logging.Logger(__name__)
 log.addHandler(logging.StreamHandler(stream=sys.stdout))
@@ -69,7 +69,8 @@ def handler():
     vbo_id = get_vbo_id(postcode, huisnummer, huisletter, huisnummer_toevoeging)
 
     if not vbo_id:
-        return "Not found", 404
+        return render_template("not_found.html", postcode=postcode, huisnummer=huisnummer,
+                               huisletter=huisletter, huisnummer_toevoeging=huisnummer_toevoeging), 404
 
     return redirect("https://atlas.amsterdam.nl/#/detail/bag/verblijfsobject/{}/".format(vbo_id))
 

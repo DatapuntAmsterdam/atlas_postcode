@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="page-header">Adres niet gevonden</h1>
+    <p>
+        Het opgevraagde adres {{ postcode }}-{{ huisnummer }} {{ huisletter or '' }} {{ huisnummer_toevoeging or '' }} is niet gevonden. 
+    </p>
+    <p>
+        <a href="https://atlas.amsterdam.nl/#/kaart?zoek={{ postcode }}">Klik hier om breder te zoeken in Atlas</a>.
+    </p>
+</div>
+</body>
+</html>
