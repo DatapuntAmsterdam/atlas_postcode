@@ -1,5 +1,5 @@
 FROM python:3
-MAINTAINER datapunt@amsterdam.nl
+MAINTAINER datapunt.ois@amsterdam.nl
 
 WORKDIR /app
 EXPOSE 8080
