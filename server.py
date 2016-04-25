@@ -105,7 +105,7 @@ def get_vbo_id(postcode, huisnummer, huisletter, huisnummer_toevoeging):
     if huisnummer_toevoeging:
         query += " AND num.huisnummer_toevoeging = %(huisnummer_toevoeging)s "
 
-    log.info("Executing query %s with params %s", query, params)
+    log.debug("Executing query %s with params %s", query, params)
 
     with psycopg2.connect(connection_str) as conn:
         with conn.cursor() as cur:
