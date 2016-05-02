@@ -8,7 +8,7 @@ from flask import Flask, request, redirect, render_template
 
 log = logging.Logger(__name__)
 log.addHandler(logging.StreamHandler(stream=sys.stdout))
-log.setLevel(logging.DEBUG)
+log.setLevel(logging.INFO)
 
 log.info("Starting %s application", __name__)
 
