@@ -75,7 +75,7 @@ def handler():
     return redirect("https://atlas.amsterdam.nl/#/detail/bag/verblijfsobject/{}/".format(vbo_id))
 
 
-@app.route("/health")
+@app.route("/status/health")
 def health():
     try:
         get_vbo_id('1061VB', 113, None, None)
