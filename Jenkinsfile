@@ -31,7 +31,7 @@ node {
 
     stage 'Test'
     tryStep "test", {
-        sh "docker exec \$5(docker-compose ps -q postcode) /app/run_test.sh"
+        sh "docker exec \$(docker-compose ps -q postcode) /app/run_test.sh"
     }, {
         sh "docker-compose stop"
         sh "docker-compose rm -f"
