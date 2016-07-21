@@ -31,10 +31,10 @@ node {
 
     stage 'Test'
     tryStep "test", {
-        sh "docker exec \$(docker-compose ps -q postcode) /app/run_test.sh"
+        sh "docker-compose up -d"
+        sh "docker-compose exec postcode /app/run_test.sh"
     }, {
-        sh "docker-compose stop"
-        sh "docker-compose rm -f"
+        sh "docker-compose down"
     }
 
     stage "Build develop image"
