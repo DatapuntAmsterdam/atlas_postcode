@@ -1,7 +1,7 @@
 database:
   image: admin.datapunt.amsterdam.nl:5000/atlas/postgres:latest
   ports:
-    - "5454:5432"
+    - "5432"
   environment:
     POSTGRES_PASSWORD: insecure
     POSTGRES_USER: postgres
@@ -12,4 +12,4 @@ postcode:
   links:
     - database:database
   ports:
-    - "9090:8080"
+    - "8080"
