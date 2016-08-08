@@ -39,7 +39,7 @@ node {
 
     stage "Build develop image"
     tryStep "build", {
-        def image = docker.build("admin.datapunt.amsterdam.nl:5000/atlas/postcode:${env.BUILD_NUMBER}")
+        def image = docker.build("admin.datapunt.amsterdam.nl:5000/datapunt/postcode:${env.BUILD_NUMBER}")
         image.push()
         image.push("develop")
     }
@@ -51,7 +51,7 @@ node {
         build job: 'Subtask_Openstack_Playbook',
                 parameters: [
                         [$class: 'StringParameterValue', name: 'INVENTORY', value: 'acceptance'],
-                        [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-atlas-postcode.yml'],
+                        [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-postcode.yml'],
                         [$class: 'StringParameterValue', name: 'BRANCH', value: 'master'],
                 ]
     }
@@ -66,7 +66,7 @@ input "Deploy to Production?"
 node {
     stage 'Build production image'
     tryStep "image tagging", {
-        def image = docker.image("admin.datapunt.amsterdam.nl:5000/atlas/postcode:${env.BUILD_NUMBER}")
+        def image = docker.image("admin.datapunt.amsterdam.nl:5000/datapunt/postcode:${env.BUILD_NUMBER}")
         image.pull()
 
         image.push("master")
@@ -80,7 +80,7 @@ node {
         build job: 'Subtask_Openstack_Playbook',
                 parameters: [
                         [$class: 'StringParameterValue', name: 'INVENTORY', value: 'production'],
-                        [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-atlas-postcode.yml'],
+                        [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-postcode.yml'],
                         [$class: 'StringParameterValue', name: 'BRANCH', value: 'master'],
                 ]
     }

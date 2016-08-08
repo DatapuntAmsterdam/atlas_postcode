@@ -1,4 +1,4 @@
-# atlas_postcode
+# postcode
 Redirect a postcode request to the Atlas detail screen
 
 	docker-compose build
