@@ -37,9 +37,7 @@ node {
         tryStep "build", {
             def image = docker.build("admin.datapunt.amsterdam.nl:5000/atlas/postcode:${env.BUILD_NUMBER}")
             image.push()
-            image.push("develop")
             image.push("acceptance")
-            image.push("production")
         }
     }
 }
