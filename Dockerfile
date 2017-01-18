@@ -1,4 +1,4 @@
-FROM amsterdam/docker_python:latest
+FROM python:3.6
 MAINTAINER datapunt.ois@amsterdam.nl
 
 WORKDIR /app
