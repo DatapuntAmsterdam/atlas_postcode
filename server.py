@@ -72,13 +72,11 @@ def handler():
         return render_template("not_found.html", postcode=postcode, huisnummer=huisnummer,
                                huisletter=huisletter, huisnummer_toevoeging=huisnummer_toevoeging), 404
 
-    return redirect("https://atlas.amsterdam.nl/#?basiskaart=topografie"
-                    "&lat=0"
-                    "&lon=0"
-                    "&zoom=0"
-                    "&detail=https:%2F%2Fapi.datapunt.amsterdam.nl%2Fbag%2Fverblijfsobject%2F{}%2F".format(vbo_id))
-
-
+    return redirect("https://atlas.amsterdam.nl/#?mpb=topografie"
+        "&mpz=16"
+        "&mpv=52.3408374:4.9044968"
+        "&dte=https:%2F%2Fapi.datapunt.amsterdam.nl%2Fbag%2Fverblijfsobject%2F{}%2F".format(vbo_id))
+            
 @app.route("/status/health")
 def health():
     try:
