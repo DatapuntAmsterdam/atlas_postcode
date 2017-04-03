@@ -10,8 +10,8 @@ RUN pip install uwsgi \
  && adduser --system postcode
 
 COPY . /app/
-RUN chmod 755 /app/run_test.sh
+RUN chmod 755 /app/docker-run.sh
 
 USER postcode
 
-CMD uwsgi --ini /app/uwsgi.ini
+CMD ["/app/docker-run.sh"]
