@@ -25,8 +25,7 @@ node {
         tryStep "test", {
             sh "docker-compose up -d --build"
             sleep 60
-            sh "docker-compose exec -T database update-db.sh atlas && " +
-               "docker-compose exec -T postcode /app/run_test.sh"
+            sh "docker-compose exec -T database update-db.sh atlas"
         }, {
             sh "docker-compose down"
         }
