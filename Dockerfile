@@ -14,4 +14,4 @@ RUN chmod 755 /app/run_test.sh
 
 USER postcode
 
-CMD uwsgi
+CMD uwsgi --ini /app/uwsgi.ini
