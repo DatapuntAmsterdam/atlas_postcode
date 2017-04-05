@@ -13,3 +13,9 @@ postcode:
     - database:database
   ports:
     - "8080"
+  environment:
+    UWSGI_HTTP: ":8080"
+    UWSGI_MODULE: "server"
+    UWSGI_CALLABLE: "app"
+    UWSGI_MASTER: 1
+
