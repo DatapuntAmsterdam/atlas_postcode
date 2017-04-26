@@ -15,6 +15,6 @@ Live
 ----
 
 * https://datapunt.amsterdam.nl/adres/postcode?p=1061VB&h=113&hl&ht
-* https://api.datapunt.amsterdam.nl/adres/postcode?p=1061VB&h=113&hl&ht
-* https://api-acc.datapunt.amsterdam.nl/adres/postcode?p=1061VB&h=113&hl&ht
+* https://api.data.amsterdam.nl/adres/postcode?p=1061VB&h=113&hl&ht
+* https://acc.api.data.amsterdam.nl/adres/postcode?p=1061VB&h=113&hl&ht
 
