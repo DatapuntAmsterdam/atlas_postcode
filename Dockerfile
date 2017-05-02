@@ -1,5 +1,5 @@
 FROM amsterdam/docker_python:latest
-MAINTAINER datapunt.ois@amsterdam.nl
+MAINTAINER datapunt@amsterdam.nl
 
 WORKDIR /app
 EXPOSE 8080
