@@ -75,7 +75,7 @@ def handler():
     return redirect("https://data.amsterdam.nl/#?mpb=topografie"
         "&mpz=16"
         "&mpv=52.3408374:4.9044968"
-        "&dte=https:%2F%2Fapi.data.amsterdam.nl%2Fbag%2Fverblijfsobject%2F{}%2F".format(vbo_id))
+        "&dte=bag%2Fverblijfsobject%2F{}%2F".format(vbo_id))
 
 @app.route("/status/health")
 def health():
