@@ -1,21 +1,23 @@
-database:
-  image: build.datapunt.amsterdam.nl:5000/atlas/postgres:latest
-  ports:
-    - "5432"
-  environment:
-    POSTGRES_PASSWORD: insecure
-    POSTGRES_USER: postgres
-    POSTGRES_DB: atlas
+version: '3.0'
+services:
+  database:
+    image: build.datapunt.amsterdam.nl:5000/atlas/postgres:latest
+    ports:
+      - "5432"
+    environment:
+      POSTGRES_PASSWORD: insecure
+      POSTGRES_USER: postgres
+      POSTGRES_DB: atlas
 
-postcode:
-  build: .
-  links:
-    - database:database
-  ports:
-    - "8080"
-  environment:
-    UWSGI_HTTP: ":8080"
-    UWSGI_MODULE: "server"
-    UWSGI_CALLABLE: "app"
-    UWSGI_MASTER: 1
+  postcode:
+    build: .
+    links:
+      - database
+    ports:
+      - "8080"
+    environment:
+      UWSGI_HTTP: ":8080"
+      UWSGI_MODULE: "server"
+      UWSGI_CALLABLE: "app"
+      UWSGI_MASTER: 1
 
