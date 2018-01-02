@@ -1,7 +1,7 @@
 version: '3.0'
 services:
   database:
-    image: build.datapunt.amsterdam.nl:5000/datapunt/postgres:latest
+    image: build.datapunt.amsterdam.nl:5000/atlas/postgres:latest
     ports:
       - "5432"
     environment:
