@@ -25,7 +25,7 @@ node {
         tryStep "test", {
             sh "docker-compose up -d --build"
             sleep 60
-            sh "docker-compose exec -T database update-db.sh atlas"
+            sh "docker-compose exec -T database update-db.sh bag"
         }, {
             sh "docker-compose down"
         }
