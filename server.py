@@ -72,10 +72,8 @@ def handler():
         return render_template("not_found.html", postcode=postcode, huisnummer=huisnummer,
                                huisletter=huisletter, huisnummer_toevoeging=huisnummer_toevoeging), 404
 
-    return redirect("https://data.amsterdam.nl/#?mpb=topografie"
-        "&mpz=16"
-        "&mpv=52.3408374:4.9044968"
-        "&dte=bag%2Fverblijfsobject%2F{}%2F".format(vbo_id))
+    return redirect("https://data.amsterdam.nl/data/bag/verblijfsobject/id{}/".format(vbo_id))
+      
 
 @app.route("/status/health")
 def health():
