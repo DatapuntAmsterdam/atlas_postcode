@@ -35,7 +35,7 @@ app = Flask(__name__)
 db_host = os.environ.get('DATABASE_PORT_5432_TCP_ADDR', get_docker_host())
 db_port = os.environ.get('DATABASE_PORT_5432_TCP_PORT', 5454)
 db_user = os.environ.get('DB_USER', 'postgres')
-db_name = os.environ.get('DB_NAME', 'atlas')
+db_name = os.environ.get('DB_NAME', 'bag')
 db_pass = os.environ.get('DB_PASS', 'insecure')
 
 connection_str = ("dbname='{}' user='{}' host='{}' password='{}' port='{}'"
@@ -72,10 +72,8 @@ def handler():
         return render_template("not_found.html", postcode=postcode, huisnummer=huisnummer,
                                huisletter=huisletter, huisnummer_toevoeging=huisnummer_toevoeging), 404
 
-    return redirect("https://data.amsterdam.nl/#?mpb=topografie"
-        "&mpz=16"
-        "&mpv=52.3408374:4.9044968"
-        "&dte=bag%2Fverblijfsobject%2F{}%2F".format(vbo_id))
+    return redirect("https://data.amsterdam.nl/data/bag/verblijfsobject/id{}/".format(vbo_id))
+      
 
 @app.route("/status/health")
 def health():
