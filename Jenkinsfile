@@ -21,7 +21,7 @@ node {
     stage("Checkout") {
         checkout scm
     }
-
+/*
     stage('Test') {
         tryStep "test", {
             sh "docker-compose up -d --build"
@@ -31,7 +31,7 @@ node {
             sh "docker-compose down"
         }
     }
-
+*/
     stage("Build image") {
         tryStep "build", {
             docker.withRegistry('https://repo.data.amsterdam.nl','docker-registry') {
