@@ -1,12 +1,10 @@
 version: '3.0'
 services:
   database:
-    image: amsterdam/postgres
-    ports:
-      - "5432"
+    image: amsterdam/postgres11
     environment:
       POSTGRES_PASSWORD: insecure
-      POSTGRES_USER: postgres
+      POSTGRES_USER: bag
       POSTGRES_DB: bag
 
   postcode:
