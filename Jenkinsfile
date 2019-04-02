@@ -2,16 +2,16 @@
 
 def tryStep(String message, Closure block, Closure tearDown = null) {
     try {
-        block()
+        block();
     }
     catch (Throwable t) {
         slackSend message: "${env.JOB_NAME}: ${message} failure ${env.BUILD_URL}", channel: '#ci-channel', color: 'danger'
 
-        throw t
+        throw t;
     }
     finally {
         if (tearDown) {
-            tearDown()
+            tearDown();
         }
     }
 }
@@ -21,16 +21,23 @@ node {
         checkout scm
     }
 
+    stage('Test') {
+        tryStep "test", {
+            sh "docker-compose up -d --build"
+            sleep 60
+            sh "docker-compose exec -T database update-db.sh bag"
+        }, {
+            sh "docker-compose down"
+        }
+    }
+
     stage("Build image") {
         tryStep "build", {
-            docker.withRegistry('https://repo.data.amsterdam.nl','docker-registry') {
-                def image = docker.build("datapunt/postcode:${env.BUILD_NUMBER}", "--build-arg http_proxy=${JENKINS_HTTP_PROXY_STRING} --build-arg https_proxy=${JENKINS_HTTP_PROXY_STRING} .")
-                image.push()
-            }
+            def image = docker.build("build.datapunt.amsterdam.nl:5000/datapunt/postcode:${env.BUILD_NUMBER}")
+            image.push()
         }
     }
 }
-
 
 String BRANCH = "${env.BRANCH_NAME}"
 
@@ -39,11 +46,9 @@ if (BRANCH == "master") {
     node {
         stage('Push acceptance image') {
             tryStep "image tagging", {
-                docker.withRegistry('https://repo.data.amsterdam.nl','docker-registry') {
-                    def image = docker.image("datapunt/postcode:${env.BUILD_NUMBER}")
-                    image.pull()
-                    image.push("acceptance")
-                }
+                def image = docker.image("build.datapunt.amsterdam.nl:5000/datapunt/postcode:${env.BUILD_NUMBER}")
+                image.pull()
+                image.push("acceptance")
             }
         }
     }
@@ -60,6 +65,7 @@ if (BRANCH == "master") {
         }
     }
 
+
     stage('Waiting for approval') {
         slackSend channel: '#ci-channel', color: 'warning', message: 'Postcode is waiting for Production Release - please confirm'
         input "Deploy to Production?"
@@ -68,12 +74,10 @@ if (BRANCH == "master") {
     node {
         stage('Push production image') {
             tryStep "image tagging", {
-                docker.withRegistry('https://repo.data.amsterdam.nl','docker-registry') {
-                def image = docker.image("datapunt/postcode:${env.BUILD_NUMBER}")
-                    image.pull()
-                    image.push("production")
-                    image.push("latest")
-                }
+                def image = docker.image("build.datapunt.amsterdam.nl:5000/datapunt/postcode:${env.BUILD_NUMBER}")
+                image.pull()
+                image.push("production")
+                image.push("latest")
             }
         }
     }
