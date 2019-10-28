@@ -1,5 +1,5 @@
 # postcode
-Redirect a postcode request to the City Data detail screen
+Redirect a postcode request to the Data and Information detail screen
 
 	docker-compose build
 	docker-compose up -d
