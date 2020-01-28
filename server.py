@@ -66,20 +66,31 @@ def handler():
     if huisletter:
         huisletter = huisletter.upper()
 
-    vbo_id = get_vbo_id(postcode, huisnummer, huisletter, huisnummer_toevoeging)
+    vbo_id = get_vbo_id(
+        postcode=postcode,
+        huisnummer=huisnummer,
+        huisletter=huisletter,
+        huisnummer_toevoeging=huisnummer_toevoeging)
 
     if not vbo_id:
-        return render_template("not_found.html", postcode=postcode, huisnummer=huisnummer,
-                               huisletter=huisletter, huisnummer_toevoeging=huisnummer_toevoeging), 404
+        return render_template(
+            "not_found.html",
+            postcode=postcode,
+            huisnummer=huisnummer,
+            huisletter=huisletter,
+            huisnummer_toevoeging=huisnummer_toevoeging
+        ), 404
 
-    return redirect("https://data.amsterdam.nl/data/bag/verblijfsobject/id{}/".format(vbo_id))
-      
+    return redirect(
+        "https://data.amsterdam.nl/data/bag/verblijfsobject/id{}/".format(
+            vbo_id))
+
 
 @app.route("/status/health")
 def health():
     try:
         get_vbo_id('1061VB', 113, None, None)
-    except:
+    except Exception:
         log.exception("Could not obtain data")
         raise
 
