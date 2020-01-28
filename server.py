@@ -34,8 +34,8 @@ app = Flask(__name__)
 
 db_host = os.environ.get('DATABASE_PORT_5432_TCP_ADDR', get_docker_host())
 db_port = os.environ.get('DATABASE_PORT_5432_TCP_PORT', 5432)
-db_user = os.environ.get('DB_USER', 'bag')
-db_name = os.environ.get('DB_NAME', 'bag')
+db_user = os.environ.get('DB_USER', 'bag_v11')
+db_name = os.environ.get('DB_NAME', 'bag_v11')
 db_pass = os.environ.get('DB_PASS', 'insecure')
 
 connection_str = ("dbname='{}' user='{}' host='{}' password='{}' port='{}'"
