@@ -4,8 +4,8 @@ services:
     image: amsterdam/postgres11
     environment:
       POSTGRES_PASSWORD: insecure
-      POSTGRES_USER: bag
-      POSTGRES_DB: bag
+      POSTGRES_USER: bag_v11
+      POSTGRES_DB: bag_v11
 
   postcode:
     build: .
